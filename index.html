@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Portfolio</title>
+  >
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -386,11 +387,11 @@
         <div id="contact" class="wrapper">
           <i class="fa-solid fa-x"></i>
           <h1 class="intro-heading">Contact</h1>
-          <form class="contact-form" action="send-email.php" method="post">
+          <form id="contact-form" class="contact-form">
             <div class="form-field-wrapper">
               <div class="half-fields">
                 <div class="field-half1">
-                  <label for="">Name</label>
+                  <label for="">Names</label>
                   <input type="text" name="name" id="userName" />
                 </div>
                 <div class="field-half">
@@ -436,5 +437,32 @@
 
     <div id="bg"></div>
     <script src="main.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+           
+      (function(){
+      emailjs.init({
+        publicKey: "BGI5QDs9hZrRAsjn_",
+        });
+      })();    
+
+      document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let params = {
+          from_name: document.getElementById('userName').value,
+          email_id: document.getElementById('userEmail').value,
+          message: document.getElementById('userMessage').value
+        }
+
+        emailjs.send('service_6218a88', 'template_bruq7tt', params) 
+          .then(function() {
+            alert('SUCCESS!');
+          }, function(error) {
+            alert('FAILED...', error);
+          });
+      });
+    </script>
   </body>
 </html>
