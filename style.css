@@ -301,6 +301,9 @@ body {
   .half-fields .field-half {
     width: 100%;
   }
+  .bread-crumb {
+    width: 100%;
+  }
 }
 
 /* .navigation .nav-list li{
