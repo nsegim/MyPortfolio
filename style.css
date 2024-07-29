@@ -226,6 +226,58 @@ body {
   border: #fff solid 1px;
   border-radius: 5px;
 }
+
+/* Landing page in small devices */
+@media (max-width: 580px) {
+  .bottom {
+    width: 40%;
+  }
+
+  .bottom::after {
+    height: 32%;
+  }
+
+  .heading {
+    font-size: 20px !important;
+  }
+
+  .middle.show {
+    padding: 22px;
+  }
+  .middle .Desc {
+    width: 100%;
+  }
+  .navigation .nav-list {
+    flex-direction: column;
+    width: 100%;
+  }
+  .navigation .nav-list li {
+    border-bottom: 1px solid #fff;
+  }
+  #main {
+    top: 0 !important;
+  }
+  #main .wrapper {
+    width: 100% !important;
+  }
+
+  .skills {
+    flex-wrap: wrap;
+  }
+  .skills .brief {
+    width: 100% !important;
+    padding-bottom: 25px;
+  }
+
+  .half-fields {
+    flex-direction: column;
+  }
+  .half-fields .field-half1,
+  .half-fields .field-half {
+    width: 100%;
+  }
+}
+
 /* .navigation .nav-list li{
   padding: 20px;
   border-right: #fff 1px solid;
