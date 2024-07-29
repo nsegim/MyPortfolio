@@ -228,6 +228,14 @@ body {
 }
 
 /* Landing page in small devices */
+@media (min-width: 768px) AND (max-width: 830px) {
+  .heading {
+    font-size: 40px !important;
+  }
+  .middle .Desc {
+    width: 100%;
+  }
+}
 @media (max-width: 580px) {
   .bottom {
     width: 40%;
