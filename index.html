@@ -575,32 +575,45 @@
 
     <div id="bg"></div>
     <script src="main.js"></script>
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
-    <script type="text/javascript">
-           
-      (function(){
-      emailjs.init({
-        publicKey: "BGI5QDs9hZrRAsjn_",
-        });
-      })();    
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-      document.getElementById('contact-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        let params = {
-          from_name: document.getElementById('userName').value,
-          email_id: document.getElementById('userEmail').value,
-          message: document.getElementById('userMessage').value
-        }
-
-        emailjs.send('service_6218a88', 'template_bruq7tt', params) 
-          .then(function() {
-            alert('SUCCESS!');
-          }, function(error) {
-            alert('FAILED...', error);
+      <script>
+      document.addEventListener("DOMContentLoaded", function () {
+      
+        emailjs.init("BGI5QDs9hZrRAsjn_");
+      
+        const form = document.getElementById("contact-form");
+      
+        if (!form) return;
+      
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+      
+          const name = document.getElementById("userName").value.trim();
+          const email = document.getElementById("userEmail").value.trim();
+          const message = document.getElementById("userMessage").value.trim();
+      
+          if (!name || !email || !message) {
+            alert("Please fill in all fields.");
+            return;
+          }
+      
+          emailjs.send("service_6218a88", "template_bruq7tt", {
+            from_name: name,
+            email_id: email,
+            message: message
+          })
+          .then(() => {
+            alert("Message sent successfully!");
+            form.reset();
+          })
+          .catch(() => {
+            alert("Failed to send message. Please try again.");
           });
+      
+        });
       });
-    </script>
+      </script>
+
   </body>
 </html>
