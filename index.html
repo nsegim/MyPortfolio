@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moussa Nsengimana — Web Developer</title>
+<meta name="description" content="Moussa Nsengimana — Full-stack web developer based in Kigali, Rwanda. Specializing in React, Next.js, WordPress and PHP.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #181818;
+  --border: #222222;
+  --accent: #c8f542;
+  --accent2: #42f5a7;
+  --text: #f0f0f0;
+  --muted: #666;
+  --muted2: #444;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── Custom Cursor ── */
+.cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, opacity 0.3s;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(20px);
+  background: rgba(10,10,10,0.85);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-cta {
+  background: var(--accent);
+  color: #000;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 22px;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  letter-spacing: 0.3px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 70% 50%, rgba(200,245,66,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(66,245,167,0.04) 0%, transparent 60%);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.3;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.hero-tag-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  margin-bottom: 32px;
+}
+
+h1 .line { display: block; overflow: hidden; }
+h1 .line span {
+  display: block;
+  animation: slideUp 0.8s cubic-bezier(0.16,1,0.3,1) both;
+}
+h1 .line:nth-child(2) span { animation-delay: 0.1s; }
+h1 .line:nth-child(3) span { animation-delay: 0.2s; }
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+h1 em { font-style: normal; color: var(--accent); }
+.hero-desc {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 48px;
+  font-weight: 300;
+  animation: fadeIn 1s 0.4s both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeIn 1s 0.5s both;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #000;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 14px 32px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-primary:hover { background: #d4f85a; transform: translateY(-2px); }
+.btn-ghost {
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 14px 32px;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.hero-stats {
+  position: absolute;
+  right: 48px; top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  z-index: 2;
+  animation: fadeIn 1s 0.6s both;
+}
+.stat { text-align: right; }
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.stat-num span { color: var(--accent); }
+.stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.scroll-line {
+  position: absolute;
+  bottom: 40px; left: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.scroll-line::before {
+  content: '';
+  display: block;
+  width: 40px; height: 1px;
+  background: var(--muted2);
+}
+
+/* ── Skills Marquee ── */
+.skills-bar {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.skills-track {
+  display: inline-flex;
+  gap: 48px;
+  animation: marquee 22s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+.skill-sep { color: var(--muted2); font-size: 20px; }
+
+/* ── About ── */
+.about-section { padding: 100px 48px; }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.about-img-wrap { position: relative; }
+.about-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: top;
+  filter: grayscale(20%);
+  display: block;
+}
+.about-img-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 64px;
+  font-weight: 800;
+  color: var(--muted2);
+}
+.about-img-frame {
+  position: absolute;
+  inset: -12px -12px 12px 12px;
+  border: 1px solid var(--accent);
+  z-index: -1;
+  opacity: 0.4;
+}
+.about-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.section-label {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+.about-text {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 24px;
+  font-weight: 300;
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 32px;
+}
+.skill-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.skill-item:hover { border-color: var(--accent); background: var(--surface2); }
+.skill-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ── Divider ── */
+.divider { height: 1px; background: var(--border); margin: 0 48px; }
+
+/* ── Work ── */
+.work-section {
+  background: var(--surface);
+  padding: 100px 48px;
+}
+.work-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+.project-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  aspect-ratio: 16/10;
+  cursor: none;
+}
+.project-card.featured {
+  grid-column: span 2;
+  aspect-ratio: 21/9;
+}
+.project-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), filter 0.6s;
+}
+.project-card:hover .project-img {
+  transform: scale(1.06);
+  filter: brightness(0.35);
+}
+.project-overlay {
+  position: absolute; inset: 0;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(transparent 20%, rgba(0,0,0,0.8));
+}
+.project-info {
+  transform: translateY(8px);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.project-card:hover .project-info { transform: translateY(0); }
+.project-tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.project-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+.project-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  max-width: 480px;
+  opacity: 0;
+  transition: opacity 0.4s 0.1s;
+}
+.project-card:hover .project-desc { opacity: 1; }
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s 0.15s, transform 0.3s 0.15s;
+}
+.project-card:hover .project-link { opacity: 1; transform: translateY(0); }
+.project-num {
+  position: absolute;
+  top: 24px; right: 24px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 1px;
+}
+
+/* ===== Work Filters ── Styles ========= */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 18px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 600; }
+.load-more-wrap { display: flex; justify-content: center; margin-top: 32px; gap: 16px; align-items: center; }
+.load-more-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 13px 32px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.load-more-btn:hover { border-color: var(--accent); color: var(--accent); }
+.load-more-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.project-count { font-size: 12px; color: var(--muted); }
+@keyframes cardIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.project-card.visible { animation: cardIn 0.4s ease both; }
+
+
+/* ── Contact ── */
+.contact-section { padding: 100px 48px; background: var(--bg); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.contact-big {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+.contact-big em { font-style: normal; color: var(--accent); }
+.contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; }
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.2s;
+}
+.contact-link:hover { border-color: var(--accent); background: var(--surface2); }
+.contact-link-icon {
+  width: 40px; height: 40px;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+.contact-link-text { font-size: 14px; font-weight: 500; }
+.contact-link-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 14px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--accent); }
+.form-group textarea { height: 130px; }
+.form-submit {
+  width: 100%;
+  background: var(--accent);
+  color: #000;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.form-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-copy { font-size: 13px; color: var(--muted); }
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--text);
+}
+.footer-logo span { color: var(--accent); }
+.footer-socials { display: flex; gap: 20px; }
+.footer-socials a {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-socials a:hover { color: var(--accent); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 80px; }
+  .hero-stats { display: none; }
+  .about-section { padding: 80px 24px; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .about-img { aspect-ratio: 4/3; }
+  .work-section { padding: 80px 24px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; aspect-ratio: 16/10; }
+  .contact-section { padding: 80px 24px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .divider { margin: 0 24px; }
+  footer { padding: 24px; }
+  .skills-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ── Navigation ── -->
+<nav>
+  <a href="#home" class="nav-logo">MN<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me →</a>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="hero-tag-dot"></span>
+      Available for new projects
+    </div>
+    <h1>
+      <span class="line"><span>Moussa</span></span>
+      <span class="line"><span>Nsengi<em>mana</em></span></span>
+      <span class="line"><span>Web Dev<em>.</em></span></span>
+    </h1>
+    <p class="hero-desc">
+      Full-stack web developer based in Kigali, Rwanda. I build high-performance
+      websites and web applications using React, Next.js, WordPress, and PHP.
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">View My Work ↓</a>
+      <a href="#contact" class="btn-ghost">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">4<span>+</span></div>
+      <div class="stat-label">Years Exp.</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">20<span>+</span></div>
+      <div class="stat-label">Projects</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">15<span>+</span></div>
+      <div class="stat-label">Clients</div>
+    </div>
+  </div>
+  <div class="scroll-line">Scroll to explore</div>
+</section>
+
+<!-- ── Skills Marquee ── -->
+<div class="skills-bar">
+  <div class="skills-track">
+    <span class="skill-pill">⚛ React</span><span class="skill-sep">·</span>
+    <span class="skill-pill">▲ Next.js</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🔷 TypeScript</span><span class="skill-sep">·</span>
+    <span class="skill-pill">⚙ WordPress</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🐘 PHP</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🗄 MySQL</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🎨 CSS / Tailwind</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🟩 Node.js</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🐙 Git & GitHub</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🎯 Elementor Pro</span><span class="skill-sep">·</span>
+    <!-- duplicate for seamless loop -->
+    <span class="skill-pill">⚛ React</span><span class="skill-sep">·</span>
+    <span class="skill-pill">▲ Next.js</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🔷 TypeScript</span><span class="skill-sep">·</span>
+    <span class="skill-pill">⚙ WordPress</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🐘 PHP</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🗄 MySQL</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🎨 CSS / Tailwind</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🟩 Node.js</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🐙 Git & GitHub</span><span class="skill-sep">·</span>
+    <span class="skill-pill">🎯 Elementor Pro</span><span class="skill-sep">·</span>
+  </div>
+</div>
+
+<!-- ── About ── -->
+<section class="about-section" id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img
+        src="./images/cartoon-image.webp"
+        alt="Moussa Nsengimana"
+        class="about-img"
+        onerror="this.outerHTML='<div class=\'about-img-placeholder\'>MN</div>'"
+      >
+      <div class="about-img-frame"></div>
+    </div>
+    <div>
+      <div class="about-tag">About Me</div>
+      <p class="section-label">Who I am</p>
+      <h2 class="section-title">Passionate about<br>clean code &<br><em style="font-style:normal;color:var(--accent)">great UX</em></h2>
+      <p class="about-text">
+        I'm Moussa Nsengimana, a full-stack web developer based in Kigali, Rwanda
+        with 4+ years of experience building performant, accessible, and visually
+        polished web experiences.
+      </p>
+      <p class="about-text">
+        I specialize in React, Next.js, and WordPress — from headless CMS integrations
+        to custom plugin development. When I'm not coding you'll find me on a football pitch.
+      </p>
+      <div class="skills-grid">
+        <div class="skill-item"><span class="skill-dot"></span>React & Next.js</div>
+        <div class="skill-item"><span class="skill-dot"></span>WordPress / WooCommerce</div>
+        <div class="skill-item"><span class="skill-dot"></span>PHP & MySQL</div>
+        <div class="skill-item"><span class="skill-dot"></span>Elementor / ACF</div>
+        <div class="skill-item"><span class="skill-dot"></span>REST APIs</div>
+        <div class="skill-item"><span class="skill-dot"></span>Git & GitHub</div>
+        <div class="skill-item"><span class="skill-dot"></span>CSS / Tailwind</div>
+        <div class="skill-item"><span class="skill-dot"></span>Linux / Ubuntu</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── Work ── -->
+<section class="work-section" id="work">
+  <div class="work-header">
+    <div>
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-title" style="margin-bottom:0">15+ Projects.<br><em style="font-style:normal;color:var(--accent)">All real work.</em></h2>
+    </div>
+    <a href="https://github.com/nsegim" target="_blank" class="btn-ghost">GitHub →</a>
+  </div>
+
+  <!-- Filter buttons -->
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="nextjs">Next.js</button>
+    <button class="filter-btn" data-filter="wordpress">WordPress</button>
+    <button class="filter-btn" data-filter="react">React</button>
+    <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
+    <button class="filter-btn" data-filter="ngo">NGO / Social</button>
+  </div>
+
+  <!-- Grid -->
+  <div class="projects-grid" id="grid"></div>
+
+  <!-- Load more -->
+  <div class="load-more-wrap">
+    <span class="project-count" id="countLabel"></span>
+    <button class="load-more-btn" id="loadMoreBtn">Load More →</button>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section class="contact-section" id="contact">
+  <div class="contact-grid">
+    <div>
+      <p class="section-label">Get In Touch</p>
+      <h2 class="contact-big">Let's build<br>something<br><em>great.</em></h2>
+      <p class="about-text">Have a project in mind? I'm currently available for freelance work and full-time opportunities. Let's talk.</p>
+      <div class="contact-links">
+        <a href="mailto:moussa@inoventyk.rw" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          <div>
+            <div class="contact-link-text">Email Me</div>
+            <div class="contact-link-sub">nsengimanamoussa3@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/ns-moussa" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <div class="contact-link-icon">in</div>
+          <div>
+            <div class="contact-link-text">LinkedIn</div>
+            <div class="contact-link-sub">https://www.linkedin.com/in/ns-moussa/</div>
+          </div>
+        </a>
+        <a href="https://github.com/nsegim" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <div class="contact-link-icon">⌥</div>
+          <div>
+            <div class="contact-link-text">GitHub</div>
+            <div class="contact-link-sub">github.com/nsegim</div>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/willinkmoussa/" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <div class="contact-link-icon">◎</div>
+          <div>
+            <div class="contact-link-text">Instagram</div>
+            <div class="contact-link-sub">@willinkmoussa</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div>
+        <form class="contact-form">
+          
+            <div class="form-group">
+              <label>Your Name</label>
+              <input 
+                type="text" 
+                name="name"
+                placeholder="John Doe"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Email Address</label>
+              <input 
+                type="email" 
+                name="email"
+                placeholder="john@example.com"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Subject</label>
+              <input 
+                type="text" 
+                name="subject"
+                placeholder="Project enquiry"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Message</label>
+              <textarea 
+                name="message"
+                placeholder="Tell me about your project..."
+                required
+              ></textarea>
+            </div>
+
+            <!-- Anti-spam -->
+            <input 
+              type="text" 
+              name="_gotcha" 
+              style="display:none"
+            >
+
+            <button type="submit" class="form-submit">
+              Send Message →
+            </button>
+
+        </form>
+      
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-copy">© 2025 Nsengimana Moussa. All rights reserved.</div>
+  <div class="footer-socials">
+    <a href="https://github.com/nsegim" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="https://linkedin.com/in/ns-moussa" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a href="https://www.instagram.com/willinkmoussa/" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
+  <div class="footer-logo">MN<span>.</span></div>
+</footer>
+
+<script>
+// ── Custom cursor ──
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX;
+  my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+(function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+
+document.querySelectorAll('a, button, .project-card, .skill-item, .contact-link').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '16px';
+    cursor.style.height = '16px';
+    ring.style.width = '56px';
+    ring.style.height = '56px';
+    ring.style.opacity = '0.5';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '10px';
+    cursor.style.height = '10px';
+    ring.style.width = '36px';
+    ring.style.height = '36px';
+    ring.style.opacity = '1';
+  });
+});
+
+// ── Scroll animations ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.project-card, .skill-item, .contact-link, .about-grid').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(28px)';
+  el.style.transition = `opacity 0.6s ${i * 0.05}s ease, transform 0.6s ${i * 0.05}s ease, border-color 0.2s, background 0.2s`;
+  observer.observe(el);
+});
+
+// ── Active nav link ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+  });
+});
+
+// ── Work filter logic ──
+const projects = [
+  {
+    num: '01',
+    name: 'Trinity Metals',
+    tag: 'Next.js · WordPress · Headless CMS',
+    desc: 'Mining company website with multilingual support (EN/Kinyarwanda), GA consent mode, Mailchimp newsletter, and custom gallery components.',
+    img: './images/trinity-metals-.webp',
+    url: 'https://trinity-metals.com/',
+    cats: ['nextjs', 'wordpress']
+  },
+  {
+    num: '02',
+    name: 'Millecollines Hotel',
+    tag: 'WordPress · WooCommerce · PHP',
+    desc: 'Full hotel booking system with custom pricing logic, coupon management, SMTP configuration, and real-time room availability.',
+    img: './images/millecollines.webp',
+    url: 'https://millecollines.rw/',
+    cats: ['wordpress', 'ecommerce']
+  },
+  {
+    num: '03',
+    name: 'Kwibuka',
+    tag: 'WordPress · Custom Theme',
+    desc: 'Memorial website commemorating 30 years since the Genocide against the Tutsi, featuring sensitive content handling and multilingual presentation.',
+    img: './images/kwibuka.webp',
+    url: 'https://kwibuka.rw',
+    cats: ['wordpress', 'ngo']
+  },
+  {
+    num: '04',
+    name: 'African Languages Experts',
+    tag: 'WordPress · Multilingual · CMS',
+    desc: 'Multilingual data and translation platform helping global companies navigate Africa-specific language challenges at scale.',
+    img: './images/africanlanguagesexperts.webp',
+    url: 'https://africanlanguagesexperts.com',
+    cats: ['wordpress']
+  },
+  {
+    num: '05',
+    name: 'Eco-fleet Solutions',
+    tag: 'WordPress · Journey management · UI/UX',
+    desc: 'Move Kigali Smarter, Greener, Together.',
+    img: './images/ecofleet.webp',
+    url: 'https://ecofleet.rw/',
+    cats: ['wordpress']
+  },
+  {
+    num: '06',
+    name: 'Umubano Tours',
+    tag: 'WordPress · Tourism · E-Commerce',
+    desc: 'Move Kigali Smarter, Greener, Together.',
+    img: './images/umubanotours.webp',
+    url: 'https://umubanotours.com/',
+    cats: ['wordpress', 'ecommerce']
+  },
+  {
+    num: '07',
+    name: 'RIBO',
+    tag: 'WordPress · B2B · International',
+    desc: 'Promoting Professionalism and Consumer Protection in the Insurance Industry',
+    img: './images/ribo.webp',
+    url: 'https://ribo.rw/',
+    cats: ['wordpress']
+  },
+  {
+    num: '08',
+    name: 'Imbuto Foundation',
+    tag: 'WordPress · NGO · CMS',
+    desc: 'Digital platform for Rwanda\'s leading foundation supporting children, youth, and women through impactful programmes.',
+    img: './images/imbutofoundation.webp',
+    url: 'https://imbutofoundation.org',
+    cats: ['wordpress', 'ngo']
+  },
+  {
+    num: '09',
+    name: 'iAccelerator',
+    tag: 'WordPress · Programme · NGO',
+    desc: 'Mentorship-driven acceleration programme platform updated to reflect Phase 7 with full roadmap and content refresh.',
+    img: './images/ia.imbutofoundation.webp',
+    url: 'https://ia.imbutofoundation.org',
+    cats: ['wordpress', 'ngo']
+  },
+  {
+    num: '10',
+    name: 'Right Venture Creative',
+    tag: 'WordPress · Digital Agency · Portfolio',
+    desc: 'Portfolio and service showcase website for a Kigali-based digital agency, built with a custom WordPress theme and Elementor Pro.',
+    img: './images/rightventurecreative.webp',
+    url: 'https://www.rightventurecreative.com',
+    cats: ['wordpress', 'agency']
+  },
+  {
+    num: '11',
+    name: '4DZ Adventures',
+    tag: 'WordPress · Tourism · E-Commerce',
+    desc: 'Discover Rwanda\'s hidden gems, East Africa safaris, and bespoke experiences for every type of traveler.',
+    img: './images/the4dzadventures.webp',
+    url: 'https://the4dzadventures.com/',
+    cats: ['wordpress', 'ecommerce']
+  },
+  {
+    num: '12',
+    name: 'We Are Solid Together',
+    tag: 'WordPress · NGO · Campaign',
+    desc: 'Campaign platform aimed at delivering 3,000,000 meals to patients in Rwanda\'s public hospitals within 6 months.',
+    img: './images/wearesolidtogether.webp',
+    url: 'https://wearesolidtogether.org/',
+    cats: ['wordpress', 'ngo']
+  },
+  {
+    num: '13',
+    name: 'Epic Safari Journeys',
+    tag: 'WordPress · Tourism · Campaign',
+    desc: 'Showcasing the best of East Africa\'s safari experiences with a focus on sustainability, local impact, and unforgettable journeys.',
+    img: './images/epicsafarijourneys.webp',
+    url: 'http://epicsafarijourneys.com/',
+    cats: ['wordpress', 'ecommerce']
+  },
+   {
+    num: '14',
+    name: 'UCI Kigali 2025',
+    tag: 'WordPress · Event · International',
+    desc: 'Official website for the 2025 UCI Road World Championships in Kigali, Rwanda, featuring event information, news updates, and visitor resources.',
+    img: './images/Ucikigali2025.webp',
+    url: 'https://ucikigali2025.rw/',
+    cats: ['wordpress', 'event']
+  },
+   {
+    num: '15',
+    name: 'RPF Inkotanyi',
+    tag: 'WordPress · Political · National',
+    desc: 'Official website for the Rwandan Patriotic Front (RPF Inkotanyi), providing information on party history, leadership, policies, and news updates.',
+    img: './images/rpfinkotanyi.webp',
+    url: 'https://rpfinkotanyi.rw/',
+    cats: ['wordpress', 'political']
+  },
+   {
+    num: '16',
+    name: 'Ingagi Lodge',
+    tag: 'WordPress · Tourism · E-Commerce',
+    desc: 'Boutique lodge website with custom booking system, multilingual support, and immersive design showcasing the best of Rwandan hospitality.',
+    img: './images/ingagilodge.webp',
+    url: 'https://ingagilodge.com/',
+    cats: ['wordpress', 'ecommerce']
+  },
+  {
+    num: '17',
+    name: 'The 4dz group',
+    tag: 'WordPress · Corporate ',
+    desc: 'Corporate website for The 4dz group, a diversified conglomerate with interests in tourism, real estate, and agriculture across East Africa.',
+    img: './images/the4dz.webp',
+    url: 'https://the4dz.com/',
+    cats: ['wordpress', 'corporate']
+  },
+  {
+    num: '18',
+    name: 'M-advocates',
+    tag: 'WordPress · Corporate ',
+    desc: 'M-advocates is a leading Rwandan law firm specializing in corporate, commercial, and dispute resolution services with a commitment to excellence and client success.',
+    img: './images/m-advocates.webp',
+    url: 'https://www.m-advocates.com/',
+    cats: ['wordpress', 'corporate']
+  },
+    {
+    num: '19',
+    name: 'Tstone Apartment Hotel',
+    tag: 'WordPress · Hospitality · E-Commerce',
+    desc: 'Modern apartment hotel website with integrated booking system, showcasing stylish accommodations and amenities in the heart of Kigali.',
+    img: './images/tstoneapartmenthotel.webp',
+    url: 'https://tstoneapartmenthotel.com/',
+    cats: ['wordpress', 'ecommerce']
+  },
+   {
+    num: '20',
+    name: 'Tour du Rwanda',
+    tag: 'WordPress · Event · International',
+    desc: 'Official website for the Tour du Rwanda, Africa\'s premier cycling event, featuring race information, stage details, team profiles, and live updates for fans around the world.',
+    img: './images/tourdurwanda.webp',
+    url: 'https://www.tourdurwanda.rw/',
+    cats: ['wordpress', 'event']
+  },
+];
+
+// ── Render logic ──
+const BATCH = 6;
+let showing = BATCH;
+let activeFilter = 'all';
+
+function filtered() {
+  return activeFilter === 'all'
+    ? projects
+    : projects.filter(p => p.cats.includes(activeFilter));
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  const list = filtered();
+  const visible = list.slice(0, showing);
+
+  grid.innerHTML = '';
+
+  visible.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'project-card visible';
+    card.style.animationDelay = (i % BATCH * 0.06) + 's';
+    card.innerHTML = `
+      <img
+        src="${p.img}"
+        alt="${p.name}"
+        class="project-img"
+        onerror="this.outerHTML='<div class=\'project-placeholder\'>${p.name}</div>'"
+      >
+      <div class="project-overlay">
+        <span class="project-num">${p.num}</span>
+        <div class="project-info">
+          <div class="project-tag">${p.tag}</div>
+          <div class="project-name">${p.name}</div>
+          <div class="project-desc">${p.desc}</div>
+          <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="project-link">
+            Visit Site ↗
+          </a>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  const btn = document.getElementById('loadMoreBtn');
+  const label = document.getElementById('countLabel');
+  label.textContent = `Showing ${visible.length} of ${list.length} projects`;
+  btn.disabled = showing >= list.length;
+  btn.textContent = showing >= list.length ? 'All projects shown ✓' : 'Load More →';
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    showing = BATCH;
+    render();
+  });
+});
+
+// Load more
+document.getElementById('loadMoreBtn').addEventListener('click', () => {
+  showing += BATCH;
+  render();
+});
+
+// Initial render
+render();
+
+// I want to configure email sending functionality for the contact form using Formspree. How can I set that up?
+const form = document.querySelector('.contact-form');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const button = form.querySelector('button');
+
+  button.disabled = true;
+  button.textContent = 'Sending...';
+
+  try {
+
+    const formData = new FormData(form);
+
+    const response = await fetch(
+      'https://formspree.io/f/xqejkgvb',
+      {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json'
+        }
+      }
+    );
+
+    if (response.ok) {
+      alert('Message sent successfully!');
+      form.reset();
+    } else {
+      alert('Something went wrong.');
+    }
+
+  } catch (error) {
+    alert('Network error.');
+  }
+
+  button.disabled = false;
+  button.textContent = 'Send Message →';
+});
+
+
+</script>
+</body>
+</html>
